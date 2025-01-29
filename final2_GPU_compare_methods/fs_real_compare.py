@@ -180,7 +180,7 @@ if __name__ == '__main__':
             memory_cleaning()
 
 
-            Invase_explainer = INVASE (model, X_df_train, y_series_train, n_epoch=epoch, prefit=False).to(device=device) #prefit = False to train the model
+            Invase_explainer = INVASE (model, X_df_train, y_series_train, n_epoch=epoch, prefit=False)#prefit = False to train the model
             model_filename = f"trained_models/INVASE_{dataset_name}.pkl"
             with open(model_filename, "wb") as f:
                     pickle.dump(Invase_explainer, f)

@@ -73,7 +73,7 @@ def load_dataset_basic(name):
         return X.values, y.values
     
     elif name == "breast_cancer": #regression
-        data = pd.read_csv('data/breastcancer.csv.gz', sep=',')
+        data = pd.read_csv('data/breast-cancer.csv', sep=',')
         X = data.iloc[:, :-1]
         y = data.iloc[:, -1]
         return X.values, y.values
