@@ -81,7 +81,8 @@ class L2XModel(nn.Module):
 def train_L2X(X_train, y_train, num_feature_imp, epochs=100, batch_size=BATCH_SIZE):
     # Initialize model
     n, d = X_train.shape
-    model = L2XModel(input_shape=d, num_feature_imp=num_feature_imp)
+    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    model = L2XModel(input_shape=d, num_feature_imp=num_feature_imp).to(device)
     
     # Define loss and optimizer
     criterion = nn.MSELoss()
@@ -94,7 +95,7 @@ def train_L2X(X_train, y_train, num_feature_imp, epochs=100, batch_size=BATCH_SI
     
     for epoch in range(epochs):
         for X_batch, y_batch in dataloader:
-            X_batch, y_batch = X_batch, y_batch
+            X_batch, y_batch = X_batch.to(device), y_batch.to(device)
             optimizer.zero_grad()
             preds, _ = model(X_batch, training=True)
             loss = criterion(preds.squeeze(), y_batch)
@@ -103,7 +104,7 @@ def train_L2X(X_train, y_train, num_feature_imp, epochs=100, batch_size=BATCH_SI
 
     # Inference: Generate feature scores for test set
     # model.eval()
-    X_test_tensor = torch.tensor(X_train, dtype=torch.float32)
+    X_test_tensor = torch.tensor(X_train, dtype=torch.float32).to(device)
     with torch.no_grad():
         _, feature_scores = model(X_test_tensor, training=False)
 

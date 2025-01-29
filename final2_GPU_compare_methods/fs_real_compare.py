@@ -164,7 +164,7 @@ if __name__ == '__main__':
             print(f"Applying feature selector: {selector} on dataset: {dataset_name}")
            
 
-            L2X_explainer, _ = train_L2X(X_train, y_train, d, epochs= epoch , batch_size = 200)
+            L2X_explainer, _ = train_L2X(X_tensor_train, y_tensor_train, d, epochs= epoch , batch_size = 200)
             model_filename = f"trained_models/L2X_{dataset_name}.pkl"
             with open(model_filename, "wb") as f:
                     pickle.dump(L2X_explainer, f)
@@ -180,7 +180,7 @@ if __name__ == '__main__':
             memory_cleaning()
 
 
-            Invase_explainer = INVASE (model, X_df_train, y_series_train, n_epoch=epoch, prefit=False)#prefit = False to train the model
+            Invase_explainer = INVASE (model, X_df_train, y_series_train, n_epoch=epoch, prefit=False).to(device=device) #prefit = False to train the model
             model_filename = f"trained_models/INVASE_{dataset_name}.pkl"
             with open(model_filename, "wb") as f:
                     pickle.dump(Invase_explainer, f)
