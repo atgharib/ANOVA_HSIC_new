@@ -114,9 +114,9 @@ act_fun_layer = torch.nn.Sigmoid
 
 if __name__ == '__main__':
 
-    # dataset_names = ["breast_cancer", "sonar", "nomao", "breast_cancer_wisconsin", "skillcraft", "ionosphere", \
-                    #  "sml", "pol",'parkinson', 'keggdirected', "pumadyn32nm", "crime", "gas",'autos', 'bike', 'keggundirected']
-    dataset_names = ["sonar"]
+    dataset_names = ["breast_cancer_wisconsin","sonar","nomao", "skillcraft", \
+                     "sml", "pol",'parkinson', 'keggdirected', "pumadyn32nm", "crime", "gas",'autos', 'bike', 'keggundirected']
+
     # Main running part of the script
     for dataset_name in dataset_names:
         print(f"\nProcessing dataset: {dataset_name}")
@@ -159,27 +159,26 @@ if __name__ == '__main__':
         
 
 
-        # Apply each feature selector
-        
+      
         print(f"Applying feature selector: L2X on dataset: {dataset_name}")
         
 
-        L2X_explainer, _ = train_L2X(X_tensor_train, y_tensor_train, d, epochs= epoch , batch_size = 200)
+        L2X_explainer, _ = train_L2X(X_train, y_train, d, epochs= epoch , batch_size = 200)
         model_filename = f"trained_models/L2X_{dataset_name}.pkl"
         with open(model_filename, "wb") as f:
                 pickle.dump(L2X_explainer, f)
-        # L2X_explainer.eval()
-        # with torch.no_grad():
-        #      _, l_L2X_weights= L2X_explainer(X_tensor_test, training=False)
-        # L2X_weights= l_L2X_weights.cpu().numpy()
-        # L2X_selected_features = (L2X_weights > 1e-3).astype(int)
-        # model_filename_weights = f"importance_weights/L2X_weights_{dataset_name}.pkl"
-        # with open(model_filename_weights, "wb") as f:
-        #         pickle.dump(L2X_weights, f)
-        # del L2X_explainer
-        # memory_cleaning()
+        L2X_explainer.eval()
+        with torch.no_grad():
+                _, l_L2X_weights= L2X_explainer(X_tensor_test, training=False)
+        L2X_weights= l_L2X_weights.cpu().numpy()
+        L2X_selected_features = (L2X_weights > 1e-3).astype(int)
+        model_filename_weights = f"importance_weights/L2X_weights_{dataset_name}.pkl"
+        with open(model_filename_weights, "wb") as f:
+                pickle.dump(L2X_weights, f)
+        del L2X_explainer
+        memory_cleaning()
 
-
+        # print(f"Applying feature selector: INVASE on dataset: {dataset_name}")
         # Invase_explainer = INVASE (model, X_df_train, y_series_train, n_epoch=epoch, prefit=False).to(device=device) #prefit = False to train the model
         # model_filename = f"trained_models/INVASE_{dataset_name}.pkl"
         # with open(model_filename, "wb") as f:
@@ -191,7 +190,7 @@ if __name__ == '__main__':
         #         pickle.dump(invase_scores, f)
         # del Invase_explainer
         # memory_cleaning()
-        
+           
 
-    print("All datasets processed!")
+        print("All datasets processed!")
     
