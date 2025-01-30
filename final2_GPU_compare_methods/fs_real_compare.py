@@ -178,18 +178,18 @@ if __name__ == '__main__':
         del L2X_explainer
         memory_cleaning()
 
-        # print(f"Applying feature selector: INVASE on dataset: {dataset_name}")
-        # Invase_explainer = INVASE (model, X_df_train, y_series_train, n_epoch=epoch, prefit=False).to(device=device) #prefit = False to train the model
-        # model_filename = f"trained_models/INVASE_{dataset_name}.pkl"
-        # with open(model_filename, "wb") as f:
-        #         pickle.dump(Invase_explainer, f)
-        # invase_scores =(Invase_explainer.explain(X_df_test)).to_numpy()                      
-        # invase_selected_features = (invase_scores > 0.5).astype(int)
-        # model_filename_weights = f"importance_weights/INVASE_weights_{dataset_name}.pkl"
-        # with open(model_filename_weights, "wb") as f:
-        #         pickle.dump(invase_scores, f)
-        # del Invase_explainer
-        # memory_cleaning()
+        print(f"Applying feature selector: INVASE on dataset: {dataset_name}")
+        Invase_explainer = INVASE (model, X_df_train, y_series_train, n_epoch=epoch, prefit=False).to(device=device) #prefit = False to train the model
+        model_filename = f"trained_models/INVASE_{dataset_name}.pkl"
+        with open(model_filename, "wb") as f:
+                pickle.dump(Invase_explainer, f)
+        invase_scores =(Invase_explainer.explain(X_df_test)).to_numpy()                      
+        invase_selected_features = (invase_scores > 0.5).astype(int)
+        model_filename_weights = f"importance_weights/INVASE_weights_{dataset_name}.pkl"
+        with open(model_filename_weights, "wb") as f:
+                pickle.dump(invase_scores, f)
+        del Invase_explainer
+        memory_cleaning()
            
 
         print("All datasets processed!")
