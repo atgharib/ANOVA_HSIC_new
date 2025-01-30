@@ -114,8 +114,8 @@ act_fun_layer = torch.nn.Sigmoid
 
 if __name__ == '__main__':
 
-    dataset_names = ["breast_cancer", "sonar", "nomao", "breast_cancer_wisconsin", "skillcraft", "ionosphere", \
-                     "sml", "pol",'parkinson', 'keggdirected', "pumadyn32nm", "crime", "gas",'autos', 'bike', 'keggundirected']
+    # dataset_names = ["breast_cancer", "sonar", "nomao", "breast_cancer_wisconsin", "skillcraft", "ionosphere", \
+                    #  "sml", "pol",'parkinson', 'keggdirected', "pumadyn32nm", "crime", "gas",'autos', 'bike', 'keggundirected']
     dataset_names = ["sonar"]
     # Main running part of the script
     for dataset_name in dataset_names:
