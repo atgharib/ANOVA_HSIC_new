@@ -160,38 +160,38 @@ if __name__ == '__main__':
 
 
         # Apply each feature selector
-        for selector in feature_selectors:
-            print(f"Applying feature selector: {selector} on dataset: {dataset_name}")
-           
+        
+        print(f"Applying feature selector: L2X on dataset: {dataset_name}")
+        
 
-            L2X_explainer, _ = train_L2X(X_tensor_train, y_tensor_train, d, epochs= epoch , batch_size = 200)
-            model_filename = f"trained_models/L2X_{dataset_name}.pkl"
-            with open(model_filename, "wb") as f:
-                    pickle.dump(L2X_explainer, f)
-            # L2X_explainer.eval()
-            # with torch.no_grad():
-            #      _, l_L2X_weights= L2X_explainer(X_tensor_test, training=False)
-            # L2X_weights= l_L2X_weights.cpu().numpy()
-            # L2X_selected_features = (L2X_weights > 1e-3).astype(int)
-            # model_filename_weights = f"importance_weights/L2X_weights_{dataset_name}.pkl"
-            # with open(model_filename_weights, "wb") as f:
-            #         pickle.dump(L2X_weights, f)
-            # del L2X_explainer
-            # memory_cleaning()
+        L2X_explainer, _ = train_L2X(X_tensor_train, y_tensor_train, d, epochs= epoch , batch_size = 200)
+        model_filename = f"trained_models/L2X_{dataset_name}.pkl"
+        with open(model_filename, "wb") as f:
+                pickle.dump(L2X_explainer, f)
+        # L2X_explainer.eval()
+        # with torch.no_grad():
+        #      _, l_L2X_weights= L2X_explainer(X_tensor_test, training=False)
+        # L2X_weights= l_L2X_weights.cpu().numpy()
+        # L2X_selected_features = (L2X_weights > 1e-3).astype(int)
+        # model_filename_weights = f"importance_weights/L2X_weights_{dataset_name}.pkl"
+        # with open(model_filename_weights, "wb") as f:
+        #         pickle.dump(L2X_weights, f)
+        # del L2X_explainer
+        # memory_cleaning()
 
 
-            # Invase_explainer = INVASE (model, X_df_train, y_series_train, n_epoch=epoch, prefit=False).to(device=device) #prefit = False to train the model
-            # model_filename = f"trained_models/INVASE_{dataset_name}.pkl"
-            # with open(model_filename, "wb") as f:
-            #         pickle.dump(Invase_explainer, f)
-            # invase_scores =(Invase_explainer.explain(X_df_test)).to_numpy()                      
-            # invase_selected_features = (invase_scores > 0.5).astype(int)
-            # model_filename_weights = f"importance_weights/INVASE_weights_{dataset_name}.pkl"
-            # with open(model_filename_weights, "wb") as f:
-            #         pickle.dump(invase_scores, f)
-            # del Invase_explainer
-            # memory_cleaning()
-           
+        # Invase_explainer = INVASE (model, X_df_train, y_series_train, n_epoch=epoch, prefit=False).to(device=device) #prefit = False to train the model
+        # model_filename = f"trained_models/INVASE_{dataset_name}.pkl"
+        # with open(model_filename, "wb") as f:
+        #         pickle.dump(Invase_explainer, f)
+        # invase_scores =(Invase_explainer.explain(X_df_test)).to_numpy()                      
+        # invase_selected_features = (invase_scores > 0.5).astype(int)
+        # model_filename_weights = f"importance_weights/INVASE_weights_{dataset_name}.pkl"
+        # with open(model_filename_weights, "wb") as f:
+        #         pickle.dump(invase_scores, f)
+        # del Invase_explainer
+        # memory_cleaning()
+        
 
     print("All datasets processed!")
     
